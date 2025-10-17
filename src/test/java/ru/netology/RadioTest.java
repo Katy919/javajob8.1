@@ -4,23 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
-
     @Test
     public void testRadio() {
-        Radio cond = new Radio(0, 5, 0, 33);
+        Radio cond = new Radio(10);
 
-        Assertions.assertEquals(0, cond.getMinRadio());
-        Assertions.assertEquals(5, cond.getMaxRadio());
         Assertions.assertEquals(0, cond.getCurrentRadio());
-        Assertions.assertEquals(0, cond.getMinVolume());
-        Assertions.assertEquals(33, cond.getMaxVolume());
-        Assertions.assertEquals(0, cond.getCurrentVolume());
+        Assertions.assertEquals(9, cond.getMaxRadio());
 
     }
 
     @Test
     public void shouldSetRadio() {
-        Radio cond = new Radio(4);
+        Radio cond = new Radio(5);
 
         cond.setCurrentRadio(4);
 
@@ -34,8 +29,8 @@ public class RadioTest {
     public void shouldSetToMaxRadio() {
         Radio cond = new Radio(9);
 
-        cond.setCurrentRadio(9);
-        int expected = 9;
+        cond.setCurrentRadio(0);
+        int expected = 0;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -43,7 +38,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMinRadio() {
-        Radio cond = new Radio(0);
+        Radio cond = new Radio();
 
         cond.setCurrentRadio(0);
         int expected = 0;
@@ -54,7 +49,7 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetRadioAboveMax() {
-        Radio cond = new Radio(0);
+        Radio cond = new Radio();
 
         cond.setCurrentRadio(10);
 
@@ -66,11 +61,11 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetRadioBeforeMin() {
-        Radio cond = new Radio(-1);
+        Radio cond = new Radio();
 
-        cond.setCurrentRadio(-1); // Пытаемся установить невалидное значение
+        cond.setCurrentRadio(-1);
 
-        int expected = 0;         // Должно остаться значение по умолчанию (0)
+        int expected = 0;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -78,7 +73,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToZeroWhenNine() {
-        Radio cond = new Radio(9);
+        Radio cond = new Radio();
 
         cond.setCurrentRadio(9);
         cond.nextCurrentRadio();
@@ -90,11 +85,11 @@ public class RadioTest {
 
     @Test
     public void shouldInсrementWhenLessThanNine() {
-        Radio cond = new Radio(6);
+        Radio cond = new Radio(5);
 
-        cond.setCurrentRadio(5);
+        cond.setCurrentRadio(3);
         cond.nextCurrentRadio();
-        int expected = 6;
+        int expected = 4;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -102,7 +97,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToNineWhenZero() {
-        Radio cond = new Radio(0);
+        Radio cond = new Radio(10);
 
         cond.setCurrentRadio(0);
         cond.prevCurrentRadio();
@@ -126,7 +121,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetVolume() {
-        Radio cond = new Radio(50);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(50);
 
@@ -138,7 +133,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMaxVolume() {
-        Radio cond = new Radio(100);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(100);
         int expected = 100;
@@ -149,7 +144,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMinVolume() {
-        Radio cond = new Radio(0);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(0);
         int expected = 0;
@@ -160,7 +155,7 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetVolumeAboveMax() {
-        Radio cond = new Radio(101);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(101);
 
@@ -172,7 +167,7 @@ public class RadioTest {
 
     @Test
     public void shouldNotSetVolumeBeforeMin() {
-        Radio cond = new Radio(-1);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(-1);
 
@@ -184,7 +179,7 @@ public class RadioTest {
 
     @Test
     public void shouldIncreaseVolumeWhenLessThanMax() {
-        Radio cond = new Radio(50);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(50);
         cond.increaseVolume();
@@ -196,7 +191,7 @@ public class RadioTest {
 
     @Test
     public void shouldNotIncreaseVolumeWhenMax() {
-        Radio cond = new Radio(100);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(100);
         cond.increaseVolume();
@@ -207,7 +202,7 @@ public class RadioTest {
 
     @Test
     public void shouldDecreaseVolumeWhenGreaterThanMin() {
-        Radio cond = new Radio(50);
+        Radio cond = new Radio();
 
         cond.setCurrentVolume(50);
         cond.decreaseVolume();
@@ -219,7 +214,7 @@ public class RadioTest {
 
     @Test
     public void shouldNotDecreaseVolumeWhenMin() {
-        Radio cond = new Radio(0);
+        Radio cond = new Radio();
 
         cond.setCurrentRadio(0);
         cond.decreaseVolume();
