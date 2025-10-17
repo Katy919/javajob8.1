@@ -120,6 +120,16 @@ public class RadioTest {
     }
 
     @Test
+    public void shouldDecrementWhenGreaterThanMin() {
+        Radio cond = new Radio(5);
+        cond.setCurrentRadio(4);      // Устанавливаем станцию 4
+        cond.prevCurrentRadio();      // ← Вызываем переключение!
+        int expected = 3;            // Ожидаем станцию 3
+        int actual = cond.getCurrentRadio();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void shouldSetVolume() {
         Radio cond = new Radio();
 
