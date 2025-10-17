@@ -4,10 +4,18 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class RadioTest {
+    @Test
+    public void testRadio() {
+        Radio cond = new Radio(10);
+
+        Assertions.assertEquals(0, cond.getCurrentRadio());
+        Assertions.assertEquals(9, cond.getMaxRadio());
+
+    }
 
     @Test
     public void shouldSetRadio() {
-        Radio cond = new Radio();
+        Radio cond = new Radio(5);
 
         cond.setCurrentRadio(4);
 
@@ -19,10 +27,10 @@ public class RadioTest {
 
     @Test
     public void shouldSetToMaxRadio() {
-        Radio cond = new Radio();
+        Radio cond = new Radio(9);
 
-        cond.setCurrentRadio(9);
-        int expected = 9;
+        cond.setCurrentRadio(0);
+        int expected = 0;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -55,9 +63,9 @@ public class RadioTest {
     public void shouldNotSetRadioBeforeMin() {
         Radio cond = new Radio();
 
-        cond.setCurrentRadio(-1); // Пытаемся установить невалидное значение
+        cond.setCurrentRadio(-1);
 
-        int expected = 0;         // Должно остаться значение по умолчанию (0)
+        int expected = 0;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -77,11 +85,11 @@ public class RadioTest {
 
     @Test
     public void shouldInсrementWhenLessThanNine() {
-        Radio cond = new Radio();
+        Radio cond = new Radio(5);
 
-        cond.setCurrentRadio(5);
+        cond.setCurrentRadio(3);
         cond.nextCurrentRadio();
-        int expected = 6;
+        int expected = 4;
         int actual = cond.getCurrentRadio();
 
         Assertions.assertEquals(expected, actual);
@@ -89,7 +97,7 @@ public class RadioTest {
 
     @Test
     public void shouldSetToNineWhenZero() {
-        Radio cond = new Radio();
+        Radio cond = new Radio(10);
 
         cond.setCurrentRadio(0);
         cond.prevCurrentRadio();
@@ -101,13 +109,23 @@ public class RadioTest {
 
     @Test
     public void shouldDecrementWhenLessThanNinee() {
-        Radio cond = new Radio();
+        Radio cond = new Radio(5);
 
         cond.setCurrentRadio(5);
         cond.prevCurrentRadio();
         int expected = 4;
         int actual = cond.getCurrentRadio();
 
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldDecrementWhenGreaterThanMin() {
+        Radio cond = new Radio(5);
+        cond.setCurrentRadio(4);      // Устанавливаем станцию 4
+        cond.prevCurrentRadio();      // ← Вызываем переключение!
+        int expected = 3;            // Ожидаем станцию 3
+        int actual = cond.getCurrentRadio();
         Assertions.assertEquals(expected, actual);
     }
 
